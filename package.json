@@ -1,0 +1,19 @@
+{
+  "name": "clonador-local-marketing",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Clonador: local evidence-gated marketing and bidirectional A2A internal orchestration",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "test": "node --test tests/*.test.mjs",
+    "check": "node --check src/marketing.mjs && node --check src/rea.mjs && node --check src/cli.mjs && node --check src/bridge.mjs",
+    "start": "node src/cli.mjs help",
+    "marketing:status": "node src/cli.mjs status",
+    "rea:plan": "node src/cli.mjs rea-plan",
+    "bridge": "node src/bridge.mjs"
+  },
+  "license": "UNLICENSED"
+}
