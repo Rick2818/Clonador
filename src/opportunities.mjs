@@ -78,7 +78,11 @@ export class OpportunityRegistry {
     const company = text(input.company, 'company', 160);
     const contact = { name: optionalText(input.contactName, 'contactName', 120), email: maskEmail(input.contactEmail), phone: maskPhone(input.contactPhone) };
     const opportunityId = OpportunityRegistry.id(tenantId, channel, externalRef);
-    const fingerprint = hash(JSON.stringify([tenantId, channel, externalRef, company, contact, input.sourceUrl || null]));
+    let attribution = null;
+    if (input.attribution !== undefined) {
+      attribution = Object.fromEntries(['playbookId', 'assetId', 'offerId', 'campaign'].map(key => [key, text(input.attribution?.[key], key, 120)]));
+    }
+    const fingerprint = hash(JSON.stringify([tenantId, channel, externalRef, company, contact, input.sourceUrl || null, ...(attribution ? [attribution, provenance, input.consentToContact === true] : [])]));
     const existing = await this.read(tenantId, opportunityId);
     if (existing) {
       if (existing.fingerprint !== fingerprint) throw new WorkflowError('OPPORTUNITY_CONFLICT', 'Same reference captured with different data');
@@ -89,7 +93,7 @@ export class OpportunityRegistry {
     const record = {
       schemaVersion: 1, opportunityId, tenantId, channel, externalRef, company, contact,
       consentToContact: input.consentToContact === true,
-      provenance, sourceUrl, fingerprint, stage: 'CAPTURED',
+      provenance, sourceUrl, fingerprint, ...(attribution ? { attribution } : {}), stage: 'CAPTURED',
       revenue: null, notes: optionalText(input.notes, 'notes', 1000),
       createdAt: this.now(), updatedAt: this.now(),
       history: [{ stage: 'CAPTURED', at: this.now(), actor: optionalText(input.actor, 'actor', 120) || channel }]
