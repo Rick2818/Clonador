@@ -1,6 +1,6 @@
 # Registro de PR y dependencias entre proyectos — Clonador
 
-**Última verificación:** 2026-11-01 (hora de El Salvador)
+**Última verificación:** 2026-11-02 (hora de El Salvador)
 **Repositorio principal del proyecto:** [Rick2818/Clonador](https://github.com/Rick2818/Clonador)
 **Empresa comercial:** Boltech Group.
 
@@ -14,9 +14,15 @@
 
 ## Pull requests propios de Clonador
 
-**Estado comprobado inicial:** 0 PR antes de comenzar esta implementación.
+**Estado comprobado:** 1 PR abierto, 0 fusionados (verificado el 2026-11-02 en [Clonador/pulls](https://github.com/Rick2818/Clonador/pulls?q=is%3Apr)).
 
-- **[PR #1 — REA: configuración local del agente de Mercadeo y puente A2A bidireccional](https://github.com/Rick2818/Clonador/pull/1)** — abierto en **draft**, pendiente de ejecución REA auténtica en Windows y certificación de la integración externa. Incluye trigger A2A local, borradores ES/EN, revisión humana y tests. **No es una clonación REA terminada ni una integración comercial real.**
+| PR | Rama de origen | Estado | Alcance verificado |
+|---|---|---|---|
+| [#1 — REA: configuración local del agente de Mercadeo y puente A2A bidireccional](https://github.com/Rick2818/Clonador/pull/1) | `feature/rea-marketing-agent-20261101` | **Abierto en draft**, sin fusionar; creado el 2026-11-01, actualizado el 2026-11-02 | 20 commits; 20 archivos, +915/−7; cabeza `d4c2074`; `mergeable_state: clean` |
+
+- `main` contiene únicamente documentación (`README.md` y este registro). El código del PR #1 —`src/marketing.mjs`, `src/bridge.mjs`, `src/cli.mjs`, `src/rea.mjs`, `config/*.json`, `tests/workflow.test.mjs` y el workflow de CI local— existe solo en la rama de origen.
+- El PR incluye trigger A2A local, borradores ES/EN, compuerta de revisión humana y pruebas automatizadas, además de `AGENTS.md`/`opencode.json` con reglas de evidencia.
+- **Qué NO certifica el PR #1:** no hay sesión REA ejecutada contra Langflow o Relevance AI, no hay envío A2A externo real, no hay validación en Windows registrada y no hay despliegue. Debe permanecer en draft hasta cumplir las compuertas de evidencia.
 
 No asignar los números #329 o #330 a este repositorio.
 
@@ -29,7 +35,9 @@ No asignar los números #329 o #330 a este repositorio.
 
 **Importante:** estos dos PR **no contienen la clonación vía REA** de Langflow/Relevance AI ni certifican envío de propuestas comerciales a esas empresas. Son infraestructura técnica de Boltech. Se conservan aquí exclusivamente como enlaces de dependencia.
 
-## Trabajo específico de Clonador todavía sin PR verificado
+## Trabajo específico de Clonador todavía pendiente de evidencia REA
+
+El PR #1 aporta andamiaje local (código y tests) para los puntos 4 y 5, pero **no sustituye** la evidencia REA ni la validación en Windows. Sigue pendiente:
 
 1. Sesiones REA con evidencia reproducible para observar de forma autorizada creación de agentes, UX, integraciones y comportamiento de Langflow y Relevance AI.
 2. Matriz comparativa REA de canales de captación, conversión, distribución y venta, con fuentes verificables; **A2A será uno de varios canales**.
@@ -47,6 +55,7 @@ No asignar los números #329 o #330 a este repositorio.
 ## Referencia rápida
 
 - [PR propios de Clonador](https://github.com/Rick2818/Clonador/pulls?q=is%3Apr)
+- [PR #1 · REA agente de Mercadeo y puente A2A](https://github.com/Rick2818/Clonador/pull/1)
 - [PR #329 · A2A receptor Boltech](https://github.com/Rick2818/Boltech-Group/pull/329)
 - [PR #330 · A2A cliente de salida Boltech](https://github.com/Rick2818/Boltech-Group/pull/330)
 
