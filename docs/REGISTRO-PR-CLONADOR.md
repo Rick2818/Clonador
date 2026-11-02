@@ -14,7 +14,9 @@
 
 ## Pull requests propios de Clonador
 
-**Estado comprobado:** 0 PR abiertos o cerrados encontrados en [Clonador/pulls](https://github.com/Rick2818/Clonador/pulls?q=is%3Apr) en la verificación anterior a este registro. El repositorio tenía `README.md` y `main`, sin historial de implementación REA demostrado por PR.
+**Estado comprobado inicial:** 0 PR antes de comenzar esta implementación.
+
+- **[PR #1 — REA: configuración local del agente de Mercadeo y puente A2A bidireccional](https://github.com/Rick2818/Clonador/pull/1)** — abierto en **draft**, pendiente de ejecución REA auténtica en Windows y certificación de la integración externa. Incluye trigger A2A local, borradores ES/EN, revisión humana y tests. **No es una clonación REA terminada ni una integración comercial real.**
 
 No asignar los números #329 o #330 a este repositorio.
 
