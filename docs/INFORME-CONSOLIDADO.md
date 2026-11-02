@@ -36,7 +36,7 @@ Capturadas con Chrome 156 headless vía CDP y REA CLI 6.8.0. Estado `IMPORTED_PE
 
 ## 4. Comparativa comercial
 
-En [`MATRIZ-REA-MERCADEO.md`](MATRIZ-REA-MERCADEO.md). Resumen: Relevance AI usa demo (`/book-a-demo`), casos con cliente nombrado, precios públicos y un catálogo de **~2 787 páginas de integración** como superficie de captación; Langflow prioriza contenido, biblioteca de plantillas (`/templates/...`) y contacto directo, sin página de precios en `/pricing` (404 observado). Precios concretos, ingresos y conversiones **no observados**.
+En [`MATRIZ-REA-MERCADEO.md`](MATRIZ-REA-MERCADEO.md) y, con lectura de negocio y plan de ejecución, en [`ANALISIS-COMERCIAL-CLONABLE.md`](ANALISIS-COMERCIAL-CLONABLE.md). Resumen: Relevance AI usa demo (`/book-a-demo`), casos con cliente nombrado, precios públicos y un catálogo de **~2 787 páginas de integración** como superficie de captación; Langflow prioriza contenido, biblioteca de plantillas (`/templates/...`), servicios profesionales y soporte premier, sin página de precios en `/pricing` (404 observado). Precios concretos, ingresos y conversiones **no observados**.
 
 ## 5. Agente de Mercadeo
 
@@ -52,7 +52,7 @@ Bidireccional y local: eventos entrantes crean materiales; el agente A2A consult
 
 ## 8. Canales comerciales
 
-A2A, formulario web, correo entrante, referencia, programa de socios, marketplace, directorio y captura manual. Todos normalizan al mismo registro; ninguno envía mensajes.
+A2A, solicitud de demo, formulario web, correo entrante, referencia, programa de socios, marketplace, directorio y captura manual: **9 canales**. Todos normalizan al mismo registro; ninguno envía mensajes. El canal `demo_request` se añadió porque ambas plataformas observadas convierten por demo y no por formulario de landing.
 
 ## 9. Panel y métricas
 

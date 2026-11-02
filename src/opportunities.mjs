@@ -5,7 +5,7 @@ import { hash, WorkflowError } from './marketing.mjs';
 
 // A2A is one channel among several. Each channel feeds the same registry.
 export const CHANNELS = Object.freeze([
-  'a2a', 'web_form', 'partner_program', 'marketplace', 'directory', 'referral', 'inbound_email', 'manual'
+  'a2a', 'demo_request', 'web_form', 'partner_program', 'marketplace', 'directory', 'referral', 'inbound_email', 'manual'
 ]);
 export const STAGES = Object.freeze([
   'CAPTURED', 'QUALIFIED', 'MATERIAL_READY', 'PROPOSAL_PREPARED',

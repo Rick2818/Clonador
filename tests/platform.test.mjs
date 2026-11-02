@@ -71,6 +71,7 @@ test('every channel adapter feeds the same contract', async t => {
   const { registry } = await setup(t);
   const samples = {
     a2a: event({ eventId: 'e-1' }),
+    demo_request: { requestId: 'd1', company: 'Acme', name: 'Ana', email: 'a@acme.test', consent: true },
     web_form: { formId: 'f1', submissionId: 's1', company: 'Acme', email: 'a@acme.test' },
     inbound_email: { messageId: 'm1', company: 'Acme', from: 'a@acme.test' },
     referral: { referralId: 'r1', company: 'Acme', referrer: 'Aliado' },

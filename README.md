@@ -15,6 +15,6 @@ node src/cli.mjs metrics
 node src/cli.mjs status
 ```
 
-Documentación: [implementación y endpoints](docs/IMPLEMENTACION.md), [REA en Windows](docs/REA-WINDOWS.md), [estado de los 12 puntos](docs/ESTADO-12-PUNTOS.md), [matriz REA de mercadeo](docs/MATRIZ-REA-MERCADEO.md), [informe consolidado](docs/INFORME-CONSOLIDADO.md), [registro de PR](docs/REGISTRO-PR-CLONADOR.md).
+Documentación: [implementación y endpoints](docs/IMPLEMENTACION.md), [REA en Windows](docs/REA-WINDOWS.md), [estado de los 12 puntos](docs/ESTADO-12-PUNTOS.md), [matriz REA de mercadeo](docs/MATRIZ-REA-MERCADEO.md), [análisis comercial clonable](docs/ANALISIS-COMERCIAL-CLONABLE.md), [informe consolidado](docs/INFORME-CONSOLIDADO.md), [registro de PR](docs/REGISTRO-PR-CLONADOR.md).
 
 Este repositorio no debe desplegarse hasta validar la integración real y los requisitos REA. Sin crons ni publicaciones automáticas.

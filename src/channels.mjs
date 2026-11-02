@@ -11,6 +11,8 @@ const req = (payload, field) => {
 // None of them performs network calls: inbound channels receive already-fetched data.
 export const channelAdapters = Object.freeze({
   a2a: p => ({ externalRef: req(p, 'eventId'), company: req(p, 'partnerName'), contactName: p.contactName, contactEmail: p.contactEmail, sourceUrl: p.sourceUrl, notes: p.message }),
+  // Both observed platforms convert through a demo conversation instead of a landing form.
+  demo_request: p => ({ externalRef: req(p, 'requestId'), company: req(p, 'company'), contactName: p.name, contactEmail: p.email, sourceUrl: p.pageUrl, consentToContact: p.consent === true, notes: p.topic }),
   web_form: p => ({ externalRef: `${req(p, 'formId')}:${req(p, 'submissionId')}`, company: req(p, 'company'), contactName: p.name, contactEmail: p.email, sourceUrl: p.pageUrl, consentToContact: p.consent === true, notes: p.message }),
   inbound_email: p => ({ externalRef: req(p, 'messageId'), company: req(p, 'company'), contactName: p.from, contactEmail: p.from, sourceUrl: null, consentToContact: p.consent === true, notes: p.subject }),
   referral: p => ({ externalRef: req(p, 'referralId'), company: req(p, 'company'), contactName: p.referrer, notes: p.context }),
