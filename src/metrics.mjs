@@ -14,7 +14,7 @@ export async function computeMetrics({ registry, workflow, now = () => new Date(
     byStage[item.stage] = (byStage[item.stage] || 0) + 1;
     byChannel[item.channel] = (byChannel[item.channel] || 0) + 1;
     provenance[item.provenance] = (provenance[item.provenance] || 0) + 1;
-    if (item.stage === 'WON' && item.revenue?.verified) {
+    if (item.provenance === 'real' && item.stage === 'WON' && item.revenue?.verified) {
       revenueByCurrency[item.revenue.currency] = (revenueByCurrency[item.revenue.currency] || 0) + item.revenue.amount;
     }
   }

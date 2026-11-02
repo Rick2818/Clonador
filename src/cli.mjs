@@ -1,3 +1,4 @@
+import { loadCommercialConfig, commercialPlan, buildCommercialKit, captureCommercial, commercialMetrics } from './commercial.mjs';
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -20,7 +21,11 @@ function get(flag) { const index = args.indexOf(`--${flag}`); return index >= 0 
 async function payload(flag) { if (!get(flag)) throw new WorkflowError('MISSING_ARGUMENT', `--${flag} is required`); return JSON.parse(await readFile(path.resolve(get(flag)), 'utf8')); }
 function print(value) { process.stdout.write(JSON.stringify(value, null, 2) + '\n'); }
 try {
-  if (command === 'trigger') print(await workflow.receive(await payload('file')));
+  if (command === 'commercial-plan') print(commercialPlan(await loadCommercialConfig()));
+  else if (command === 'commercial-build') print(await buildCommercialKit(await loadCommercialConfig(), stateDir));
+  else if (command === 'commercial-capture') print(await captureCommercial(await loadCommercialConfig(), registry, await payload('file')));
+  else if (command === 'commercial-metrics') print(await commercialMetrics(await loadCommercialConfig(), registry, get('tenant')));
+  else if (command === 'trigger') print(await workflow.receive(await payload('file')));
   else if (command === 'reply') print(await workflow.incomingReply(await payload('file')));
   else if (command === 'approve') print(await workflow.approve(get('tenant'), get('event'), get('operator')));
   else if (command === 'handoff') print(await workflow.handoff(get('tenant'), get('event')));
@@ -57,6 +62,10 @@ try {
       'receipt --tenant T --event E', 'status', 'rea-plan',
       'reconcile [--apply]  # report/repair interrupted jobs and stale locks',
       'rea-stage --target langflow|relevance-ai --evidence-id ID --file evidence.json --source-url URL --coverage TEXT --limitations TEXT [--captured-at ISO]',
+      'commercial-plan  # two configured commercial playbooks',
+      'commercial-build  # generate a new local review kit; no publication',
+      'commercial-capture --file submission.json  # consented written request with attribution',
+      'commercial-metrics --tenant T  # real-only metrics by playbook',
       'channels  # supported commercial channels',
       'capture --file submission.json  # normalize a channel submission into the registry',
       'opps [--tenant T] [--channel C] [--stage S]',
