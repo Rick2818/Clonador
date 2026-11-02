@@ -30,8 +30,10 @@ Repetir únicamente para páginas autorizadas de Relevance AI, eligiendo el iden
 6. Comprobar el identificador `evidence_id` real y la cobertura del JSON, y luego registrar su huella SHA-256 **sin declarar certificación**:
 
 ```powershell
-node src/cli.mjs rea-stage --target langflow --evidence-id EVIDENCE_ID_REAL --file .clonador\langflow-observation.json
+node src/cli.mjs rea-stage --target langflow --evidence-id EVIDENCE_ID_REAL --file .clonador\langflow-observation.json --source-url "https://www.langflow.org/<ruta-observada>" --coverage "<qué se observó>" --limitations "<qué no se pudo observar>" --captured-at 2026-11-02T12:00:00Z
 ```
+
+`stageReaEvidence` exige URL `https` del dominio de la plataforma declarada, cobertura y limitaciones; sin esos campos rechaza el registro con `INCOMPLETE_EVIDENCE`. El manifiesto guarda fecha, URL, cobertura, limitaciones y SHA-256 del artefacto.
 
 El programa registra `IMPORTED_PENDING_HUMAN_REVIEW`. Una lectura externa, documentación, un reporte generado por otro agente o un JSON fabricado no se marca como inspección REA. Las trazas privadas no se suben a GitHub, y el archivo `.clonador` está excluido por `.gitignore`.
 

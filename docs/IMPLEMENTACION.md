@@ -35,6 +35,16 @@ Los tokens del bloque son **instrucciones** de configuración, no credenciales d
 - **No operativo todavía:** integración al A2A de producción de Boltech, relación con socios reales, envío a Langflow/Relevance AI, scheduler autónomo, LLM/modelos, análisis verdadero de REA en Windows, campañas multicanal y medición de ingresos.
 - **No significa clonación funcional certificada:** los textos actuales son plantillas originales de base; se perfeccionarán únicamente con evidencias obtenidas de las aplicaciones observadas y pruebas autorizadas. El resultado no hace claims de funcionamiento interno de terceros.
 
+## Recuperación y observabilidad
+
+- `node src/cli.mjs reconcile` informa de trabajos interrumpidos, locks huérfanos y archivos temporales; `--apply` los repara moviendo carpetas incompletas a `jobs/_orphaned` para permitir el reintento del evento.
+- Un lock de operación incluye `pid`, host y hora de creación. Se considera huérfano si el proceso dueño no existe en el mismo host, si supera 5 minutos o si es ilegible durante más de 30 segundos.
+- `node src/cli.mjs status` devuelve el total de trabajos y el desglose por estado.
+
+## Aislamiento por tenant del operador
+
+Si se define `CLONADOR_OPERATOR_TENANTS` (lista separada por comas), el token de operador solo puede aprobar, entregar o consultar esos tenants; cualquier otro responde `403 TENANT_NOT_AUTHORIZED`. Sin la variable, el comportamiento es el de un operador único local.
+
 ## Criterios para pasar a producción en otro PR
 
 1. Evidencias REA auténticas, almacenadas localmente, cobertura y limitaciones revisadas.
