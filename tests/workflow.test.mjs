@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdtemp, rm, readFile, writeFile } from 'node:fs/promises';
+import { mkdtemp, mkdir, rm, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import os from 'node:os';
 import { MarketingWorkflow, normalizeEvent, createMaterial } from '../src/marketing.mjs';
@@ -73,10 +73,24 @@ test('EN messages produce English marketing drafts without fabricated customer r
 test('REA artifacts imported as pending, never certified',async t=>{
   const {dir}=await fixture(t);const file=path.join(dir,'rea.json');
   await writeFile(file,JSON.stringify({evidence_id:'rea_observation_12345',normalized_result:{coverage:{status:'partial'},targets:['Langflow']}}));
-  const staged=await stageReaEvidence({file,targetId:'langflow',evidenceId:'rea_observation_12345',localEvidenceDir:path.join(dir,'rea-records')});
+  const staged=await stageReaEvidence({file,targetId:'langflow',evidenceId:'rea_observation_12345',localEvidenceDir:path.join(dir,'rea-records'),
+    sourceUrl:'https://www.langflow.org/pricing',coverage:'Pricing page only',limitations:'No login, no checkout flow observed'});
   assert.equal(staged.status,'IMPORTED_PENDING_HUMAN_REVIEW');
   assert.equal(staged.artifactSha256.length,64);
-  await assert.rejects(stageReaEvidence({file,targetId:'langflow',evidenceId:'rea_observation_12345',localEvidenceDir:path.join(dir,'rea-records')}),e=>e.code==='EEXIST');
+  assert.equal(staged.schemaVersion,2);
+  assert.equal(staged.coverage,'Pricing page only');
+  assert.match(staged.capturedAt,/^\d{4}-\d{2}-\d{2}T/);
+  await assert.rejects(stageReaEvidence({file,targetId:'langflow',evidenceId:'rea_observation_12345',localEvidenceDir:path.join(dir,'rea-records'),
+    sourceUrl:'https://www.langflow.org/pricing',coverage:'Pricing page only',limitations:'No login'}),e=>e.code==='EEXIST');
+});
+test('REA import requires provenance, coverage, limits and a matching vendor URL',async t=>{
+  const {dir}=await fixture(t);const file=path.join(dir,'rea.json');
+  await writeFile(file,JSON.stringify({evidence_id:'rea_observation_77777',payload:'p'.repeat(50)}));
+  const base={file,targetId:'langflow',evidenceId:'rea_observation_77777',localEvidenceDir:path.join(dir,'rea-records')};
+  await assert.rejects(stageReaEvidence(base),e=>e.code==='INCOMPLETE_EVIDENCE');
+  await assert.rejects(stageReaEvidence({...base,sourceUrl:'https://example.test/x',coverage:'c',limitations:'l'}),e=>e.code==='EVIDENCE_TARGET_MISMATCH');
+  await assert.rejects(stageReaEvidence({...base,sourceUrl:'http://www.langflow.org/x',coverage:'c',limitations:'l'}),e=>e.code==='INVALID_SOURCE_URL');
+  await assert.rejects(stageReaEvidence({...base,sourceUrl:'https://www.langflow.org/x',coverage:'',limitations:'l'}),e=>e.code==='INCOMPLETE_EVIDENCE');
 });
 test('REA import rejects mismatched identity and arbitrary vendor',async t=>{
   const {dir}=await fixture(t);const file=path.join(dir,'rea.json');
@@ -112,4 +126,42 @@ test('local loopback bridge enforces roles, tenant isolation, approvals, and rev
 test('bridge refuses default startup without distinct strong credentials',async t=>{
   const {workflow}=await fixture(t);
   assert.throws(()=>createMarketingBridge({workflow,a2aToken:'weak',operatorToken:'weak'}),e=>e.code==='MISSING_SECRETS');
+});
+test('live locks block and stale locks are reclaimed',async t=>{
+  const {workflow}=await fixture(t);await workflow.receive(incoming());
+  const lock=path.join(workflow.folder('tenant-one','real-or-operator-001'),'operation.lock');
+  await writeFile(lock,JSON.stringify({pid:process.pid,host:os.hostname(),startedAt:Date.now()}));
+  await assert.rejects(workflow.approve('tenant-one','real-or-operator-001','director'),e=>e.code==='BUSY');
+  await writeFile(lock,JSON.stringify({pid:2147483646,host:os.hostname(),startedAt:Date.now()}));
+  const approved=await workflow.approve('tenant-one','real-or-operator-001','director');
+  assert.equal(approved.state,'APPROVED_FOR_HANDOFF');
+  await assert.rejects(readFile(lock),e=>e.code==='ENOENT');
+});
+test('reconcile reports, then repairs interrupted jobs on apply',async t=>{
+  const {workflow}=await fixture(t);
+  const folder=workflow.folder('tenant-one','interrupted-001');
+  await mkdir(folder,{recursive:true});
+  const dry=await workflow.reconcile();
+  assert.equal(dry.applied,false);
+  assert.deepEqual(dry.quarantined,[path.basename(folder)]);
+  const applied=await workflow.reconcile({apply:true});
+  assert.equal(applied.applied,true);
+  assert.equal(applied.quarantined.length,1);
+  const record=await workflow.receive(incoming({eventId:'interrupted-001'}));
+  assert.equal(record.state,'DRAFT_REVIEW_REQUIRED');
+  const status=await workflow.status();
+  assert.equal(status.jobs,1);
+  assert.equal(status.byState.DRAFT_REVIEW_REQUIRED,1);
+});
+test('operator token can be scoped to specific tenants',async t=>{
+  const {workflow}=await fixture(t);
+  const tokenA='local-a2a-secret-token-with-32-characters', tokenO='local-operator-secret-token-with-32-characters';
+  const server=createMarketingBridge({workflow,a2aToken:tokenA,operatorToken:tokenO,operatorTenants:['tenant-one']});
+  await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
+  t.after(async()=>await new Promise(resolve=>server.close(resolve)));
+  const addr='http://127.0.0.1:'+server.address().port;
+  async function invoke(uri,body,token){const r=await fetch(addr+uri,{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+token},body:JSON.stringify(body)});return {status:r.status,data:await r.json()};}
+  assert.equal((await invoke('/v1/a2a/events',incoming(),tokenA)).status,200);
+  assert.equal((await invoke('/v1/operator/approve',{tenantId:'tenant-two',eventId:'real-or-operator-001',operatorId:'director'},tokenO)).status,403);
+  assert.equal((await invoke('/v1/operator/approve',{tenantId:'tenant-one',eventId:'real-or-operator-001',operatorId:'director'},tokenO)).status,200);
 });

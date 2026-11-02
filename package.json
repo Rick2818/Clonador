@@ -9,10 +9,13 @@
   },
   "scripts": {
     "test": "node --test tests/*.test.mjs",
-    "check": "node --check src/marketing.mjs && node --check src/rea.mjs && node --check src/cli.mjs && node --check src/bridge.mjs",
+    "check": "node --check src/marketing.mjs && node --check src/rea.mjs && node --check src/cli.mjs && node --check src/bridge.mjs && node --check src/opportunities.mjs && node --check src/channels.mjs && node --check src/metrics.mjs && node --check src/agent.mjs && node --check src/a2a-client.mjs && node --check scripts/summarize-rea.mjs",
     "start": "node src/cli.mjs help",
     "marketing:status": "node src/cli.mjs status",
     "rea:plan": "node src/cli.mjs rea-plan",
+    "metrics": "node src/cli.mjs metrics",
+    "opps": "node src/cli.mjs opps",
+    "rea:summary": "node scripts/summarize-rea.mjs",
     "bridge": "node src/bridge.mjs"
   },
   "license": "UNLICENSED"

@@ -1,5 +1,6 @@
 import { createHash, randomUUID } from 'node:crypto';
-import { mkdir, open, readFile, writeFile, rename } from 'node:fs/promises';
+import { mkdir, open, readFile, readdir, rename, stat, unlink, writeFile } from 'node:fs/promises';
+import os from 'node:os';
 import path from 'node:path';
 
 export class WorkflowError extends Error {
@@ -11,6 +12,8 @@ const allowedEvents = new Set([
   'a2a.partner.received', 'a2a.partner.reply.received', 'marketing.a2a.material.requested'
 ]);
 const statuses = new Set(['DRAFT_REVIEW_REQUIRED', 'APPROVED_FOR_HANDOFF', 'QUEUED_FOR_A2A', 'REPLY_REVIEW_REQUIRED']);
+const LOCK_STALE_MS = 5 * 60 * 1000;
+const UNREADABLE_LOCK_STALE_MS = 30 * 1000;
 const exact = (value, name, limit = 200) => {
   if (typeof value !== 'string' || !value.trim() || value.length > limit) throw new WorkflowError('INVALID_INPUT', `${name} must be 1-${limit} characters`);
   return value.trim();
@@ -42,8 +45,9 @@ export function normalizeEvent(event) {
 
 function sanitizeExternal(text) {
   // Until disclosure consent is verified by a human, mask possible identifying details.
+  // Horizontal characters only: a vertical \s would mask figures across line breaks.
   return text.replace(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi, '[correo reservado]')
-    .replace(/\+?\d[\d\s().-]{7,}\d/g, '[teléfono reservado]')
+    .replace(/\+?\d[\d \t().-]{7,}\d/g, '[teléfono reservado]')
     .replace(/https?:\/\/\S+/gi, '[enlace pendiente de revisión]');
 }
 
@@ -79,6 +83,7 @@ export function createMaterial(event, config) {
 
 const fileName = (tenant, event) => hash(JSON.stringify([tenant, event]));
 async function loadJson(file) { return JSON.parse(await readFile(file, 'utf8')); }
+async function readJsonOrNull(file) { try { return await loadJson(file); } catch { return null; } }
 async function writeAtomic(file, value) {
   const temp = `${file}.${randomUUID()}.tmp`;
   const fd = await open(temp, 'wx', 0o600);
@@ -86,6 +91,41 @@ async function writeAtomic(file, value) {
   await rename(temp, file);
 }
 async function ensureDir(dir) { await mkdir(dir, { recursive: true, mode: 0o700 }); }
+
+const isProcessAlive = pid => {
+  try { process.kill(pid, 0); return true; } catch (error) { return error?.code === 'EPERM'; }
+};
+
+// A lock is reclaimable only when its owner cannot still be running: dead PID on
+// this host, older than the TTL, or unreadable long enough that no writer is mid-create.
+async function lockIsStale(lock) {
+  const info = await readJsonOrNull(lock);
+  if (info === null) {
+    try { const details = await stat(lock); return Date.now() - details.mtimeMs > UNREADABLE_LOCK_STALE_MS; }
+    catch { return false; }
+  }
+  const sameHost = !info.host || info.host === os.hostname();
+  if (typeof info.pid === 'number' && sameHost && !isProcessAlive(info.pid)) return true;
+  return typeof info.startedAt === 'number' && Date.now() - info.startedAt > LOCK_STALE_MS;
+}
+
+async function acquireLock(lock) {
+  for (let attempt = 0; attempt < 2; attempt += 1) {
+    try {
+      const fd = await open(lock, 'wx', 0o600);
+      try {
+        await fd.writeFile(JSON.stringify({ pid: process.pid, host: os.hostname(), startedAt: Date.now() }) + '\n');
+        await fd.sync();
+      } finally { await fd.close(); }
+      return;
+    } catch (error) {
+      if (error?.code !== 'EEXIST') throw error;
+      if (attempt === 0 && await lockIsStale(lock)) { await unlink(lock).catch(() => {}); continue; }
+      throw new WorkflowError('BUSY', 'Operation in progress; run reconcile if no process is active');
+    }
+  }
+  throw new WorkflowError('BUSY', 'Operation in progress; run reconcile if no process is active');
+}
 
 export class MarketingWorkflow {
   constructor({ stateDir, config, now = () => new Date().toISOString() }) {
@@ -104,7 +144,7 @@ export class MarketingWorkflow {
     catch (error) {
       if (error?.code !== 'EEXIST') throw error;
       const prior = await this.read(event.tenantId, event.eventId);
-      if (!prior) throw new WorkflowError('INCOMPLETE_EVENT', 'Existing event processing incomplete; reconcile before retry');
+      if (!prior) throw new WorkflowError('INCOMPLETE_EVENT', 'Existing event processing incomplete; run "cli reconcile --apply" before retry');
       if (prior.fingerprint !== fingerprint) throw new WorkflowError('EVENT_CONFLICT', 'Same event ID was submitted with changed contents');
       return { ...prior, replay: true };
     }
@@ -128,9 +168,11 @@ export class MarketingWorkflow {
   async update(tenantId, eventId, expectedState, updater) {
     const dir = this.folder(tenantId, eventId);
     const lock = path.join(dir, 'operation.lock');
-    let file;
-    try { file = await open(lock, 'wx', 0o600); }
-    catch(e) { if (e?.code === 'EEXIST') throw new WorkflowError('BUSY', 'Operation in progress'); throw e; }
+    try { await acquireLock(lock); }
+    catch (error) {
+      if (error?.code === 'ENOENT') throw new WorkflowError('NOT_FOUND', 'Unknown event');
+      throw error;
+    }
     try {
       const record = await this.read(tenantId, eventId);
       if (!record) throw new WorkflowError('NOT_FOUND', 'Unknown event');
@@ -140,7 +182,7 @@ export class MarketingWorkflow {
       next.updatedAt = this.now();
       await writeAtomic(path.join(dir, 'state.json'), next);
       return next;
-    } finally { await file.close(); await (await import('node:fs/promises')).unlink(lock); }
+    } finally { await unlink(lock).catch(() => {}); }
   }
   async approve(tenantId, eventId, operatorId) {
     const human = exact(operatorId, 'operatorId', 120);
@@ -169,7 +211,51 @@ export class MarketingWorkflow {
   }
   async status() {
     const root = path.join(this.base, 'jobs');
-    try { const files = await (await import('node:fs/promises')).readdir(root); return { jobs: files.length, stateDir: this.base }; }
-    catch(e) { if (e.code === 'ENOENT') return { jobs: 0, stateDir: this.base }; throw e; }
+    const byState = {}; let jobs = 0;
+    let entries;
+    try { entries = await readdir(root, { withFileTypes: true }); }
+    catch(e) { if (e?.code === 'ENOENT') return { jobs: 0, byState, stateDir: this.base }; throw e; }
+    for (const entry of entries) {
+      if (!entry.isDirectory() || entry.name.startsWith('_')) continue;
+      jobs += 1;
+      const record = await readJsonOrNull(path.join(root, entry.name, 'state.json'));
+      const state = record && statuses.has(record.state) ? record.state : 'UNREADABLE_OR_INCOMPLETE';
+      byState[state] = (byState[state] || 0) + 1;
+    }
+    return { jobs, byState, stateDir: this.base };
+  }
+  // Repairs interrupted work. Without apply it only reports what would change.
+  async reconcile({ apply = false } = {}) {
+    const root = path.join(this.base, 'jobs');
+    const report = { applied: apply, scanned: 0, staleLocks: [], tempFiles: [], quarantined: [] };
+    let entries;
+    try { entries = await readdir(root, { withFileTypes: true }); }
+    catch(e) { if (e?.code === 'ENOENT') return report; throw e; }
+    for (const entry of entries) {
+      if (!entry.isDirectory() || entry.name.startsWith('_')) continue;
+      report.scanned += 1;
+      const dir = path.join(root, entry.name);
+      const files = await readdir(dir);
+      const lock = path.join(dir, 'operation.lock');
+      if (files.includes('operation.lock') && await lockIsStale(lock)) {
+        report.staleLocks.push(entry.name);
+        if (apply) await unlink(lock).catch(() => {});
+      }
+      const temps = files.filter(name => name.endsWith('.tmp'));
+      if (temps.length) {
+        report.tempFiles.push({ job: entry.name, files: temps });
+        if (apply) for (const name of temps) await unlink(path.join(dir, name)).catch(() => {});
+      }
+      const record = await readJsonOrNull(path.join(dir, 'state.json'));
+      if (!record || !statuses.has(record.state)) {
+        report.quarantined.push(entry.name);
+        if (apply) {
+          const archive = path.join(root, '_orphaned');
+          await ensureDir(archive);
+          await rename(dir, path.join(archive, `${entry.name}.${Date.now()}`)).catch(() => {});
+        }
+      }
+    }
+    return report;
   }
 }

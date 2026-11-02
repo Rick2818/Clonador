@@ -26,10 +26,11 @@ async function parseBody(req) {
   }
   try { return JSON.parse(data); } catch { throw new WorkflowError('INVALID_JSON', 'Valid JSON required'); }
 }
-export function createMarketingBridge({ workflow, a2aToken, operatorToken }) {
+export function createMarketingBridge({ workflow, a2aToken, operatorToken, operatorTenants = [] }) {
   if (!a2aToken || a2aToken.length < 32 || !operatorToken || operatorToken.length < 32 || a2aToken === operatorToken) {
     throw new WorkflowError('MISSING_SECRETS', 'Distinct A2A and operator secrets of at least 32 characters are required');
   }
+  const scopedTenants = new Set(Array.isArray(operatorTenants) ? operatorTenants.filter(Boolean) : []);
   return createServer(async (req, res) => {
     if (req.method !== 'POST') return reply(res, 405, { error: 'METHOD_NOT_ALLOWED' });
     const uri = String(req.url || '').split('?')[0];
@@ -41,6 +42,9 @@ export function createMarketingBridge({ workflow, a2aToken, operatorToken }) {
     if (!auth.startsWith('Bearer ') || !secureMatch(auth.slice(7), required)) return reply(res, 401, { error: 'UNAUTHORIZED' });
     try {
       const body = await parseBody(req);
+      if (operatorRoutes.has(uri) && scopedTenants.size && !scopedTenants.has(body?.tenantId)) {
+        return reply(res, 403, { error: 'TENANT_NOT_AUTHORIZED' });
+      }
       if (uri === '/v1/a2a/events') {
         if (body?.source !== 'external-a2a') throw new WorkflowError('INVALID_SOURCE', 'Only verified A2A-origin events are allowed here');
         if (body.type === 'a2a.partner.reply.received' && !body.reference) throw new WorkflowError('MISSING_REFERENCE', 'Reply requires reference');
@@ -75,8 +79,10 @@ export async function startLocalBridge({ stateDir, port = 8789 } = {}) {
   const a2aToken = process.env.CLONADOR_A2A_TOKEN;
   const operatorToken = process.env.CLONADOR_OPERATOR_TOKEN;
   const config = JSON.parse(await readFile(path.join(root, 'config/marketing-agent.json'), 'utf8'));
-  const workflow = new MarketingWorkflow({ stateDir: stateDir || path.join(root, '.clonador'), config });
-  const server = createMarketingBridge({ workflow, a2aToken, operatorToken });
+  const envStateDir = process.env.CLONADOR_STATE_DIR ? path.resolve(process.env.CLONADOR_STATE_DIR) : null;
+  const workflow = new MarketingWorkflow({ stateDir: stateDir || envStateDir || path.join(root, '.clonador'), config });
+  const operatorTenants = String(process.env.CLONADOR_OPERATOR_TENANTS || '').split(',').map(x => x.trim()).filter(Boolean);
+  const server = createMarketingBridge({ workflow, a2aToken, operatorToken, operatorTenants });
   await new Promise((resolve, reject) => server.once('error', reject).listen(port, '127.0.0.1', resolve));
   return server;
 }
