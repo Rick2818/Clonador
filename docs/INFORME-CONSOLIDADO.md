@@ -21,14 +21,22 @@ Ver detalle en [`ESTADO-12-PUNTOS.md`](ESTADO-12-PUNTOS.md): 7 `TESTED`, 4 `IMPL
 
 | Plataforma | Evidence ID | SHA-256 del artefacto | Cobertura |
 |---|---|---|---|
-| Langflow | `ev_1dafbd447f4ef82d6a0267a8a4203fb0e870508c27c36ed0400b48c280dd6289` | `6792b3822af88fc419925120825dc3e919d57da780c6a6f54c0448a404aff189` | Landing pública |
-| Relevance AI | `ev_4a779b63c16a721e43060e527b5dd4e83408ba98652f4e3b5873f851c3a1041e` | `15b96a8756ec49a3ad9be7ed2c1a1b24b3b3f4ac08e96520ed0cb9aa3ad57b82` | Landing pública |
+| Langflow | `ev_1dafbd447…dd6289` | `6792b382…aff189` | Landing pública |
+| Langflow | `ev_b6cf4206a…` | `e562a652…` | `/use-cases` |
+| Langflow | `ev_534c06f00…` | `562c39d4…` | `/pricing` → 404 |
+| Langflow | `ev_537443a3b…` | `b2dc22de…` | `/contact-us` |
+| Relevance AI | `ev_4a779b63c…` | `15b96a87…` | Landing pública |
+| Relevance AI | `ev_8ede21b4b…` | `de8a57e4…` | `/pricing` |
+| Relevance AI | `ev_8ecd68160…` | `292c5474…` | `/integrations` (~2 787 fichas) |
+| Relevance AI | `ev_5fc4141ae…` | `f3604640…` | `/use-cases/outbound-prospector` |
+| Relevance AI | `ev_b73f66649…` | `472cd8d1…` | `/use-cases/proposal-builder` |
+| Relevance AI | `ev_50d1ff319…` | `a6612291…` | `/customers/canva` |
 
 Capturadas con Chrome 156 headless vía CDP y REA CLI 6.8.0. Estado `IMPORTED_PENDING_HUMAN_REVIEW`; no se declaran certificadas.
 
 ## 4. Comparativa comercial
 
-En [`MATRIZ-REA-MERCADEO.md`](MATRIZ-REA-MERCADEO.md). Resumen: Relevance AI usa demo (`/book-a-demo`), casos con cliente nombrado y catálogo de integraciones; Langflow prioriza contenido (blog, podcast, eventos) y contacto directo. Precios, ingresos y conversiones **no observados**.
+En [`MATRIZ-REA-MERCADEO.md`](MATRIZ-REA-MERCADEO.md). Resumen: Relevance AI usa demo (`/book-a-demo`), casos con cliente nombrado, precios públicos y un catálogo de **~2 787 páginas de integración** como superficie de captación; Langflow prioriza contenido, biblioteca de plantillas (`/templates/...`) y contacto directo, sin página de precios en `/pricing` (404 observado). Precios concretos, ingresos y conversiones **no observados**.
 
 ## 5. Agente de Mercadeo
 

@@ -9,8 +9,8 @@ Estados: `PENDING` · `IN_PROGRESS` · `BLOCKED` · `IMPLEMENTED` · `TESTED` ·
 
 | # | Punto | Estado | Evidencia | Pruebas | Próxima acción |
 |---|---|---|---|---|---|
-| 1 | REA real en Langflow y Relevance AI | `IMPLEMENTED` (parcial) | 2 observaciones primarias registradas con SHA-256 | Verificación de artefacto y manifiesto | Ampliar a precios, demo y `/use-cases`; requiere decisión sobre Node |
-| 2 | Adquisición y conversión | `IMPLEMENTED` | `docs/MATRIZ-REA-MERCADEO.md` | — | Completar filas de precios si son públicas |
+| 1 | REA real en Langflow y Relevance AI | `IMPLEMENTED` (10 observaciones) | 10 artefactos primarios con SHA-256: landings, casos de uso, precios, integraciones y cliente | Verificación de artefacto y manifiesto | Ampliar a demo autenticada; requiere autorización |
+| 2 | Adquisición y conversión | `IMPLEMENTED` | `docs/MATRIZ-REA-MERCADEO.md` con rutas y superficies observadas | — | Medir fichas de integración individuales |
 | 3 | Reimplementar mejores prácticas | `TESTED` | `src/opportunities.mjs`, `src/channels.mjs` | 24 tests | Añadir plantillas por rol derivadas de evidencia |
 | 4 | Capacidades de Mercadeo | `IMPLEMENTED` | Plantillas ES/EN + políticas de claims | Tests de redacción y claims | Revisión humana de copy |
 | 5 | Agente de Mercadeo | `TESTED` | `src/agent.mjs` (objetivo, plan, verificación, reanudación) | Test de idempotencia y compuerta humana | Motor LLM: `BLOCKED` (sin proveedor autorizado) |
