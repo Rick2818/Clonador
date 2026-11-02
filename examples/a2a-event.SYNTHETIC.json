@@ -1,0 +1,12 @@
+{
+  "eventId": "synthetic-demo-001",
+  "type": "marketing.a2a.material.requested",
+  "tenantId": "synthetic-company",
+  "partnerId": "synthetic-partner",
+  "partnerName": "Socio de prueba",
+  "subject": "Demostración local de material de alianza",
+  "message": "Solicitamos una presentación de las capacidades de Boltech Group. EJEMPLO SINTÉTICO, NO LEAD REAL.",
+  "language": "es",
+  "source": "operator",
+  "consentToShareDetails": false
+}
