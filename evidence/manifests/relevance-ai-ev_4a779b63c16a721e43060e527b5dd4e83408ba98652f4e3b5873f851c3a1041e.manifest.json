@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 2,
+  "targetId": "relevance-ai",
+  "organization": "Relevance AI",
+  "evidenceId": "ev_4a779b63c16a721e43060e527b5dd4e83408ba98652f4e3b5873f851c3a1041e",
+  "capturedAt": "2026-11-02T15:42:00.000Z",
+  "sourceUrl": "https://relevanceai.com/",
+  "coverage": "Landing publica: propuesta de valor, navegacion, CTAs, secciones y enlaces visibles",
+  "limitations": "Solo pagina publica sin sesion; no se observaron precios, checkout ni flujo de compra",
+  "artifactSha256": "15b96a8756ec49a3ad9be7ed2c1a1b24b3b3f4ac08e96520ed0cb9aa3ad57b82",
+  "originalFileName": "relevance-observation.json",
+  "status": "IMPORTED_PENDING_HUMAN_REVIEW",
+  "note": "Hash verifies this imported artifact only; it does not authenticate REA execution, coverage or third-party behavior."
+}

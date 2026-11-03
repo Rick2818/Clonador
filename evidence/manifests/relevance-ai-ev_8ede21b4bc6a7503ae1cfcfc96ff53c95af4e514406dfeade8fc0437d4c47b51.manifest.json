@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 2,
+  "targetId": "relevance-ai",
+  "organization": "Relevance AI",
+  "evidenceId": "ev_8ede21b4bc6a7503ae1cfcfc96ff53c95af4e514406dfeade8fc0437d4c47b51",
+  "capturedAt": "2026-11-02T15:41:02.042Z",
+  "sourceUrl": "https://relevanceai.com/pricing",
+  "coverage": "Intento de pagina publica de precios",
+  "limitations": "Sin sesion; puede no existir como ruta",
+  "artifactSha256": "de8a57e421d3ac2d650c23c4758b6d7986db37147a4a7bfec2a4c91e8b87dfbb",
+  "originalFileName": "relevance-pricing.json",
+  "status": "IMPORTED_PENDING_HUMAN_REVIEW",
+  "note": "Hash verifies this imported artifact only; it does not authenticate REA execution, coverage or third-party behavior."
+}

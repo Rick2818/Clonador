@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 2,
+  "targetId": "langflow",
+  "organization": "Langflow",
+  "evidenceId": "ev_534c06f00733e23b91899aeafb1b6d7433c955efa284414a380e917743114c4d",
+  "capturedAt": "2026-11-02T15:39:41.803Z",
+  "sourceUrl": "https://www.langflow.org/pricing",
+  "coverage": "Intento de pagina publica de precios",
+  "limitations": "Sin sesion; puede no existir como ruta",
+  "artifactSha256": "562c39d4236551e0649d1ac909f8a291ed232398ac18221086df3ac569d3c260",
+  "originalFileName": "langflow-pricing.json",
+  "status": "IMPORTED_PENDING_HUMAN_REVIEW",
+  "note": "Hash verifies this imported artifact only; it does not authenticate REA execution, coverage or third-party behavior."
+}

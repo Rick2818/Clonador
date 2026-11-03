@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "identity": "Boltech Group",
+  "policy": "Research channels via REA, no automatic external delivery",
+  "channels": [
+    {
+      "id": "a2a",
+      "kind": "partner_agents",
+      "researchStatus": "DOCUMENTATION_ONLY_NOT_REA_VALIDATED",
+      "sendEnabled": false,
+      "bridgeStatus": "LOCAL_INTERNAL_ONLY",
+      "requires": [
+        "approved_endpoint",
+        "recipient_identity",
+        "legal_consent",
+        "signed_receipt"
+      ]
+    },
+    {
+      "id": "organic-web",
+      "kind": "website_content_and_demonstrations",
+      "researchStatus": "NOT_REA_VALIDATED",
+      "publishEnabled": false,
+      "requires": [
+        "evidence_of_user_flow",
+        "approved_content",
+        "verified_conversion_metrics"
+      ]
+    },
+    {
+      "id": "institutional-linkedin",
+      "kind": "social_institutional",
+      "researchStatus": "NOT_REA_VALIDATED",
+      "publishEnabled": false,
+      "requires": [
+        "institutional_permission",
+        "channel_approval"
+      ]
+    },
+    {
+      "id": "marketplaces",
+      "kind": "upwork_freelancer",
+      "researchStatus": "NOT_REA_VALIDATED",
+      "sendEnabled": false,
+      "requires": [
+        "authorized_connector",
+        "verified_project",
+        "specific_human_approval"
+      ]
+    },
+    {
+      "id": "partner-programs",
+      "kind": "expert_reseller_programs",
+      "researchStatus": "NOT_REA_VALIDATED",
+      "applyEnabled": false,
+      "requires": [
+        "verified_program_terms",
+        "human_acceptance"
+      ]
+    }
+  ]
+}

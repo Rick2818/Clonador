@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 2,
+  "targetId": "relevance-ai",
+  "organization": "Relevance AI",
+  "evidenceId": "ev_5fc4141aedd3b6ed273a861b7ea8b78f2f5bbcd3dcd60ddfb34a5f32c0b54d03",
+  "capturedAt": "2026-11-02T15:40:23.366Z",
+  "sourceUrl": "https://relevanceai.com/use-cases/outbound-prospector",
+  "coverage": "Pagina publica de caso de uso por rol",
+  "limitations": "Sin sesion; texto filtrado",
+  "artifactSha256": "f3604640b6a1190114a2c16b59d67bcbe96d269d127ee03ba3154dd9e9a914d6",
+  "originalFileName": "relevance-usecase-outbound.json",
+  "status": "IMPORTED_PENDING_HUMAN_REVIEW",
+  "note": "Hash verifies this imported artifact only; it does not authenticate REA execution, coverage or third-party behavior."
+}
