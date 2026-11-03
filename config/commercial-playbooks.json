@@ -1,0 +1,217 @@
+{
+  "schemaVersion": 1,
+  "brand": "Boltech Group",
+  "language": "es",
+  "configuredAt": "2026-11-02",
+  "status": "LOCAL_CONFIGURED",
+  "budgetUSD": 0,
+  "contactMode": "written_digital_only",
+  "publishingEnabled": false,
+  "externalSendEnabled": false,
+  "primaryCTA": "Solicitar evaluación por escrito",
+  "sources": [
+    {
+      "id": "langflow-public",
+      "url": "https://www.langflow.org/",
+      "observedAt": "2026-11-02",
+      "type": "PUBLIC_WEB_NOT_REA",
+      "observation": "Entrada gratuita, casos de uso, servicios profesionales y soporte; sin datos de conversiones."
+    },
+    {
+      "id": "relevance-public",
+      "url": "https://relevanceai.com/integrations",
+      "observedAt": "2026-11-02",
+      "type": "PUBLIC_WEB_NOT_REA",
+      "observation": "Directorio de integraciones y llamadas a la acción para prueba y contacto comercial."
+    },
+    {
+      "id": "relevance-pricing",
+      "url": "https://relevanceai.com/pricing",
+      "observedAt": "2026-11-02",
+      "type": "PUBLIC_WEB_NOT_REA",
+      "observation": "Oferta Enterprise con contacto comercial; enlaces por función, comparativas y partners."
+    }
+  ],
+  "playbooks": [
+    {
+      "id": "adoption-services",
+      "inspiredBy": "Langflow",
+      "entry": "Guía gratuita y biblioteca por tarea",
+      "steps": [
+        "Recurso útil",
+        "Solicitud escrita",
+        "Cualificación",
+        "Propuesta",
+        "Aceptación y pago verificados"
+      ],
+      "sourceIds": [
+        "langflow-public"
+      ],
+      "offerIds": [
+        "implementation",
+        "custom-agent",
+        "support"
+      ]
+    },
+    {
+      "id": "solution-led",
+      "inspiredBy": "Relevance AI",
+      "entry": "Caso de uso, ficha de integración o comparativa",
+      "steps": [
+        "Contenido específico",
+        "Solicitud escrita",
+        "Cualificación",
+        "Propuesta",
+        "Aceptación y pago verificados"
+      ],
+      "sourceIds": [
+        "relevance-public",
+        "relevance-pricing"
+      ],
+      "offerIds": [
+        "implementation",
+        "custom-agent",
+        "support"
+      ]
+    }
+  ],
+  "qualificationFields": [
+    "Proceso actual",
+    "Tarea repetitiva",
+    "Herramientas existentes",
+    "Volumen aproximado",
+    "Resultado esperado",
+    "Responsable de decisión",
+    "Restricciones de datos",
+    "Presupuesto orientativo"
+  ],
+  "offers": [
+    {
+      "id": "implementation",
+      "title": "Implementación de un flujo",
+      "deliverables": [
+        "Mapa del proceso",
+        "Configuración acordada",
+        "Pruebas con criterios de aceptación",
+        "Guía de uso"
+      ],
+      "price": null,
+      "pricing": "Cotización según alcance"
+    },
+    {
+      "id": "custom-agent",
+      "title": "Agente a medida",
+      "deliverables": [
+        "Requisitos validados",
+        "Implementación original",
+        "Validación del responsable",
+        "Entrega documentada"
+      ],
+      "price": null,
+      "pricing": "Cotización según alcance"
+    },
+    {
+      "id": "support",
+      "title": "Soporte y seguimiento",
+      "deliverables": [
+        "Alcance de soporte",
+        "Registro de incidencias",
+        "Revisión de cambios autorizados"
+      ],
+      "price": null,
+      "pricing": "Periodicidad y precio por acordar"
+    }
+  ],
+  "roles": [
+    {
+      "id": "ventas",
+      "title": "Da seguimiento a cada oportunidad con un proceso definido",
+      "task": "Organizar consultas y preparar el siguiente paso comercial."
+    },
+    {
+      "id": "mercadeo",
+      "title": "Prepara materiales desde una oferta y un contexto común",
+      "task": "Crear borradores por audiencia y mantener revisión antes de entregar."
+    },
+    {
+      "id": "operaciones",
+      "title": "Documenta y evalúa una tarea repetitiva de tu operación",
+      "task": "Identificar entradas, responsables, aprobaciones y entregables."
+    }
+  ],
+  "integrations": [
+    {
+      "id": "airtable",
+      "name": "Airtable",
+      "status": "PROPOSED_REQUIRES_TECHNICAL_VALIDATION"
+    },
+    {
+      "id": "google-sheets",
+      "name": "Google Sheets",
+      "status": "PROPOSED_REQUIRES_TECHNICAL_VALIDATION"
+    },
+    {
+      "id": "gmail",
+      "name": "Gmail",
+      "status": "PROPOSED_REQUIRES_TECHNICAL_VALIDATION"
+    },
+    {
+      "id": "google-drive",
+      "name": "Google Drive",
+      "status": "PROPOSED_REQUIRES_TECHNICAL_VALIDATION"
+    },
+    {
+      "id": "telegram",
+      "name": "Telegram",
+      "status": "PROPOSED_REQUIRES_TECHNICAL_VALIDATION"
+    },
+    {
+      "id": "supabase",
+      "name": "Supabase",
+      "status": "PROPOSED_REQUIRES_TECHNICAL_VALIDATION"
+    },
+    {
+      "id": "n8n",
+      "name": "n8n",
+      "status": "PROPOSED_REQUIRES_TECHNICAL_VALIDATION"
+    },
+    {
+      "id": "hubspot",
+      "name": "HubSpot",
+      "status": "PROPOSED_REQUIRES_TECHNICAL_VALIDATION"
+    },
+    {
+      "id": "slack",
+      "name": "Slack",
+      "status": "PROPOSED_REQUIRES_TECHNICAL_VALIDATION"
+    },
+    {
+      "id": "notion",
+      "name": "Notion",
+      "status": "PROPOSED_REQUIRES_TECHNICAL_VALIDATION"
+    }
+  ],
+  "comparisons": [
+    {
+      "id": "implementacion-o-langflow",
+      "platform": "Langflow",
+      "sourceIds": [
+        "langflow-public"
+      ],
+      "description": "Langflow presenta un constructor visual y recursos para equipos que desarrollan agentes. Boltech propone un servicio de implementación sujeto a alcance; comparar quién construye, mantiene y valida el flujo."
+    },
+    {
+      "id": "implementacion-o-relevance-ai",
+      "platform": "Relevance AI",
+      "sourceIds": [
+        "relevance-pricing"
+      ],
+      "description": "Relevance AI presenta una plataforma con oferta Enterprise y contacto comercial. Boltech propone implementación y soporte sujetos a evaluación; comparar herramientas necesarias, responsabilidades y condiciones cotizadas."
+    }
+  ],
+  "goals30Days": {
+    "kind": "HYPOTHESIS_NOT_FORECAST",
+    "realOpportunities": 10,
+    "writtenAssessmentRequests": 3
+  }
+}

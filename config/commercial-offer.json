@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "owner": "Boltech Group",
+  "commercialIdentity": "Boltech Group",
+  "pricePolicy": "No se publica ningún importe hasta que el propietario lo apruebe por escrito.",
+  "services": [
+    {
+      "id": "agent-implementation",
+      "name": "Implementación de agentes de IA",
+      "buyer": "Operaciones y atención al cliente",
+      "problem": "Tareas repetitivas consumen horas, dependen de personas concretas y no escalan sin ampliar el equipo.",
+      "scope": "Descubrimiento del proceso, diseño del flujo, implementación del agente y puesta en marcha controlada.",
+      "deliverables": [
+        "Mapa del proceso actual y sus excepciones",
+        "Agente configurado en entorno controlado",
+        "Pruebas de aceptación acordadas",
+        "Documentación operativa y de reversión"
+      ],
+      "exclusions": [
+        "Licencias o créditos de proveedores de modelos",
+        "Datos de clientes sin consentimiento verificable",
+        "Soporte 24/7"
+      ],
+      "qualification": [
+        "Proceso repetitivo y definido",
+        "Responsable interno asignado",
+        "Acceso autorizado a las herramientas implicadas"
+      ],
+      "cta": "demo",
+      "priceStatus": "PENDING_OWNER_DECISION",
+      "price": null
+    },
+    {
+      "id": "custom-commercial-agent",
+      "name": "Agente comercial a medida",
+      "buyer": "Ventas y mercadeo",
+      "problem": "Las oportunidades se pierden por falta de respuesta, materiales genéricos y seguimiento inconsistente.",
+      "scope": "Agente de preparación comercial: captación estructurada, materiales por rol, aprobación humana y seguimiento medido.",
+      "deliverables": [
+        "Registro de oportunidades con canal y procedencia",
+        "Material ES/EN por rol comprador",
+        "Flujo de aprobación antes de cualquier contacto",
+        "Panel de embudo y conversión"
+      ],
+      "exclusions": [
+        "Envío automático a terceros sin autorización",
+        "Publicación de casos sin consentimiento",
+        "Compra de listas o bases de datos"
+      ],
+      "qualification": [
+        "Canal de captación identificado",
+        "Responsable comercial designado",
+        "Criterio de aceptación de oportunidades"
+      ],
+      "cta": "demo",
+      "priceStatus": "PENDING_OWNER_DECISION",
+      "price": null
+    },
+    {
+      "id": "integration-support",
+      "name": "Integraciones y soporte de automatización",
+      "buyer": "TI y equipos técnicos",
+      "problem": "Los sistemas no se hablan entre sí y cada automatización nueva rompe la anterior.",
+      "scope": "Integración entre sistemas existentes, monitoreo, recuperación ante fallos y documentación de contratos.",
+      "deliverables": [
+        "Contrato de integración documentado",
+        "Pruebas de fallo y recuperación",
+        "Registro de recibos y errores",
+        "Guía de operación"
+      ],
+      "exclusions": [
+        "Credenciales de producción en texto plano",
+        "Cambios en infraestructura de terceros",
+        "Garantía de disponibilidad sin monitoreo contratado"
+      ],
+      "qualification": [
+        "Sistemas con API o interfaz documentada",
+        "Entorno de pruebas disponible",
+        "Ventana de mantenimiento acordada"
+      ],
+      "cta": "demo",
+      "priceStatus": "PENDING_OWNER_DECISION",
+      "price": null
+    }
+  ]
+}

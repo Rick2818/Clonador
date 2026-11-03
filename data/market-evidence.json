@@ -1,0 +1,131 @@
+{
+  "schemaVersion": 1,
+  "capturedAt": "2026-11-02",
+  "note": "Cada afirmación sobre terceros debe citar la página o el artefacto que la sustenta. Lo no observado se declara como no observado.",
+  "roles": [
+    {
+      "id": "ventas",
+      "label": "Ventas",
+      "problem": "Oportunidades sin respuesta rápida, materiales genéricos y seguimiento inconsistente.",
+      "basis": "HYPOTHESIS",
+      "basisSource": "artefacto REA ev_5fc4141aedd3b6ed273a861b7ea8b78f2f5bbcd3dcd60ddfb34a5f32c0b54d03",
+      "observedAt": "2026-11-02",
+      "serviceId": "custom-commercial-agent"
+    },
+    {
+      "id": "marketing",
+      "label": "Marketing",
+      "problem": "Contenido que no se conecta con una ruta de conversión ni se puede medir por canal.",
+      "basis": "HYPOTHESIS",
+      "serviceId": "custom-commercial-agent"
+    },
+    {
+      "id": "atencion-cliente",
+      "label": "Atención al cliente",
+      "problem": "Volumen repetitivo, respuestas desiguales y conocimiento disperso entre personas.",
+      "basis": "HYPOTHESIS",
+      "serviceId": "agent-implementation"
+    },
+    {
+      "id": "operaciones",
+      "label": "Operaciones",
+      "problem": "Procesos manuales entre sistemas, sin registro de fallos ni recuperación clara.",
+      "basis": "HYPOTHESIS",
+      "serviceId": "integration-support"
+    }
+  ],
+  "competitors": [
+    {
+      "id": "relevance-ai",
+      "name": "Relevance AI",
+      "dimensions": [
+        {
+          "label": "Ruta de conversión",
+          "us": "Solicitud de demo registrada como canal demo_request, con respuesta humana.",
+          "usSource": "docs/IMPLEMENTACION.md",
+          "them": "Talk to sales → /book-a-demo",
+          "themSource": "https://relevanceai.com/pricing",
+          "observedAt": "2026-11-02"
+        },
+        {
+          "label": "Precio público",
+          "us": "No publicado. Pendiente de decisión del propietario.",
+          "usSource": "config/commercial-offer.json",
+          "them": "Nivel único Enterprise, sin importe visible.",
+          "themSource": "https://relevanceai.com/pricing",
+          "observedAt": "2026-11-02"
+        },
+        {
+          "label": "Aprobación humana antes de contacto",
+          "us": "Obligatoria por diseño antes de cualquier entrega o envío.",
+          "usSource": "docs/IMPLEMENTACION.md",
+          "them": "No observable desde páginas públicas.",
+          "themSource": "https://relevanceai.com/",
+          "observedAt": "2026-11-02"
+        },
+        {
+          "label": "Catálogo de integraciones",
+          "us": "En construcción, con canal directory operativo.",
+          "usSource": "docs/ESTADO-12-PUNTOS.md",
+          "them": "≈2 787 fichas /integrations/<nombre> observadas.",
+          "themSource": "artefacto REA ev_8ecd681602ecb0a32a3098090a67121614f0017bd86fb1",
+          "observedAt": "2026-11-02"
+        },
+        {
+          "label": "Envío externo automático",
+          "us": "Desactivado por diseño; requiere autorización y allowlist.",
+          "usSource": "config/marketing-agent.json",
+          "them": "No observable desde páginas públicas.",
+          "themSource": "https://relevanceai.com/",
+          "observedAt": "2026-11-02"
+        }
+      ]
+    },
+    {
+      "id": "langflow",
+      "name": "Langflow",
+      "dimensions": [
+        {
+          "label": "Ruta de conversión",
+          "us": "Solicitud de demo registrada como canal demo_request, con respuesta humana.",
+          "usSource": "docs/IMPLEMENTACION.md",
+          "them": "Get Started for Free → /desktop",
+          "themSource": "https://www.langflow.org/",
+          "observedAt": "2026-11-02"
+        },
+        {
+          "label": "Precio público",
+          "us": "No publicado. Pendiente de decisión del propietario.",
+          "usSource": "config/commercial-offer.json",
+          "them": "/pricing devuelve 404; sin página de precios en esa ruta.",
+          "themSource": "artefacto REA ev_534c06f00733e23b91899aeafb1b6d7433c955efa28441",
+          "observedAt": "2026-11-02"
+        },
+        {
+          "label": "Adopción comunitaria",
+          "us": "No medida todavía.",
+          "usSource": "docs/ESTADO-12-PUNTOS.md",
+          "them": "153k estrellas en GitHub, 25k en Discord, 16k en YouTube.",
+          "themSource": "https://www.langflow.org/",
+          "observedAt": "2026-11-02"
+        },
+        {
+          "label": "Biblioteca de plantillas",
+          "us": "En construcción: materiales persistidos, catálogo público pendiente.",
+          "usSource": "docs/ESTADO-12-PUNTOS.md",
+          "them": "/use-cases deriva a /templates/<caso>.",
+          "themSource": "artefacto REA ev_b6cf4206aa076217816e135e41f7170864d0fc3d272984",
+          "observedAt": "2026-11-02"
+        },
+        {
+          "label": "Línea de servicios",
+          "us": "Tres servicios definidos: implementación, agente comercial y soporte de integración.",
+          "usSource": "config/commercial-offer.json",
+          "them": "Professional Services y Premier Support vía /contact-us.",
+          "themSource": "https://www.langflow.org/",
+          "observedAt": "2026-11-02"
+        }
+      ]
+    }
+  ]
+}
