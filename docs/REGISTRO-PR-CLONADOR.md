@@ -1,6 +1,6 @@
 # Registro de PR y dependencias entre proyectos — Clonador
 
-**Última verificación:** 2026-11-02 (hora de El Salvador)
+**Última verificación:** 2026-11-03 (hora de El Salvador)
 **Repositorio principal del proyecto:** [Rick2818/Clonador](https://github.com/Rick2818/Clonador)
 **Empresa comercial:** Boltech Group.
 
@@ -14,15 +14,20 @@
 
 ## Pull requests propios de Clonador
 
-**Estado comprobado:** 1 PR abierto, 0 fusionados (verificado el 2026-11-02 en [Clonador/pulls](https://github.com/Rick2818/Clonador/pulls?q=is%3Apr)).
+**Estado comprobado:** 2 PR abiertos, 0 fusionados (verificado el 2026-11-03 en [Clonador/pulls](https://github.com/Rick2818/Clonador/pulls?q=is%3Apr)).
 
 | PR | Rama de origen | Estado | Alcance verificado |
 |---|---|---|---|
-| [#1 — REA: configuración local del agente de Mercadeo y puente A2A bidireccional](https://github.com/Rick2818/Clonador/pull/1) | `feature/rea-marketing-agent-20261101` | **Abierto en draft**, sin fusionar; creado el 2026-11-01, actualizado el 2026-11-02 | 20 commits; 20 archivos, +915/−7; cabeza `d4c2074`; `mergeable_state: clean` |
+| [#1 — REA: configuración local del agente de Mercadeo y puente A2A bidireccional](https://github.com/Rick2818/Clonador/pull/1) | `feature/rea-marketing-agent-20261101` | **Abierto**, marcado listo para revisión (ya no está en draft); sin fusionar; creado el 2026-11-01, actualizado el 2026-11-03 | 26 commits; 41 archivos, +2392/−9; cabeza `cde0b04`; `mergeable_state: clean`; CI `test` en success; 0 revisiones |
+| [#4 — Recorridos comerciales: playbooks, oferta, kit de contenido y métrica real](https://github.com/Rick2818/Clonador/pull/4) | `feature/recorridos-comerciales-20261103` | **Abierto en draft**, sin fusionar; creado el 2026-11-03 | 1 commit; 16 archivos, +1365/−9 frente a su base; cabeza `9cf211b`; base apilada `feature/rea-marketing-agent-20261101` |
 
 - `main` contiene únicamente documentación (`README.md` y este registro). El código del PR #1 —`src/marketing.mjs`, `src/bridge.mjs`, `src/cli.mjs`, `src/rea.mjs`, `config/*.json`, `tests/workflow.test.mjs` y el workflow de CI local— existe solo en la rama de origen.
 - El PR incluye trigger A2A local, borradores ES/EN, compuerta de revisión humana y pruebas automatizadas, además de `AGENTS.md`/`opencode.json` con reglas de evidencia.
-- **Qué NO certifica el PR #1:** no hay sesión REA ejecutada contra Langflow o Relevance AI, no hay envío A2A externo real, no hay validación en Windows registrada y no hay despliegue. Debe permanecer en draft hasta cumplir las compuertas de evidencia.
+- **Qué NO certifica el PR #1:** no hay sesión REA ejecutada contra Langflow o Relevance AI, no hay envío A2A externo real, no hay validación en Windows registrada y no hay despliegue. Está marcado como listo para revisión, pero **no debe fusionarse** hasta cumplir las compuertas de evidencia.
+- Los diez manifiestos de evidencia REA estaban solo en `.clonador/rea-evidence/` (ruta ignorada). Se publicaron en `evidence/manifests/` con un README que declara el límite: el hash corresponde al artefacto importado, los artefactos originales no se conservan y hoy no pueden recalcularse. Los manifiestos **no** certifican ejecución de REA ni la cobertura declarada.
+- El **PR #4** está apilado sobre la rama del PR #1. Contra `main` mostraría 40 archivos porque #1 sigue sin fusionar; debe revisarse contra su rama base y no fusionarse antes que #1.
+- El PR #4 aporta dos recorridos comerciales (`adoption-services`, `solution-led`), oferta sin precios publicados, 22 activos de revisión, captura con atribución y métrica por tenant. No publica páginas, no envía mensajes y no activa conectores.
+- **Qué NO certifica el PR #4:** no hay conector web aprobado, ni recibo verificado de extremo a extremo, ni precios aprobados, ni clientes o ingresos verificados. Las observaciones de páginas públicas se registran como `PUBLIC_WEB_NOT_REA`, no como captura REA. Validación ejecutada el 2026-11-03: `npm run check` correcto y `npm test` 38/38.
 
 No asignar los números #329 o #330 a este repositorio.
 
@@ -45,6 +50,8 @@ El PR #1 aporta andamiaje local (código y tests) para los puntos 4 y 5, pero **
 4. Evaluación y reimplementación de lo mejor observable de sus funciones de mercadeo para un agente de Mercadeo propio de Boltech.
 5. Pruebas en entorno local Windows de Clonador y validación antes de subir componentes desarrollados o desplegar producción. La presencia de este registro en GitHub no certifica que Clonador esté terminado.
 
+El **PR #4** implementa dos recorridos comerciales propios y su medición, pero tampoco sustituye la evidencia REA: las observaciones de páginas públicas quedan marcadas como `PUBLIC_WEB_NOT_REA` y las hipótesis de segmento, precio y conversión siguen sin validación con compradores reales.
+
 ## Convención para nuevos PR
 
 - PR de **Clonador**: usar exclusivamente `Rick2818/Clonador`, con título `REA: <capacidad investigada>`, evidencia de observación, límites, pruebas y autorización.
@@ -56,6 +63,7 @@ El PR #1 aporta andamiaje local (código y tests) para los puntos 4 y 5, pero **
 
 - [PR propios de Clonador](https://github.com/Rick2818/Clonador/pulls?q=is%3Apr)
 - [PR #1 · REA agente de Mercadeo y puente A2A](https://github.com/Rick2818/Clonador/pull/1)
+- [PR #4 · Recorridos comerciales](https://github.com/Rick2818/Clonador/pull/4)
 - [PR #329 · A2A receptor Boltech](https://github.com/Rick2818/Boltech-Group/pull/329)
 - [PR #330 · A2A cliente de salida Boltech](https://github.com/Rick2818/Boltech-Group/pull/330)
 
