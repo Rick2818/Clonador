@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 2,
+  "targetId": "relevance-ai",
+  "organization": "Relevance AI",
+  "evidenceId": "ev_8ecd681602ecb0a32a3098090a67121614f0017bd86fb103aea77acbd570e7ef",
+  "capturedAt": "2026-11-02T15:40:10.962Z",
+  "sourceUrl": "https://relevanceai.com/integrations",
+  "coverage": "Catalogo publico de integraciones",
+  "limitations": "Sin sesion; texto filtrado por politica",
+  "artifactSha256": "292c5474a445da5dc3fe4b9a63f007b332e9ff62a8da25a969c62e0a902a6ae3",
+  "originalFileName": "relevance-integrations.json",
+  "status": "IMPORTED_PENDING_HUMAN_REVIEW",
+  "note": "Hash verifies this imported artifact only; it does not authenticate REA execution, coverage or third-party behavior."
+}

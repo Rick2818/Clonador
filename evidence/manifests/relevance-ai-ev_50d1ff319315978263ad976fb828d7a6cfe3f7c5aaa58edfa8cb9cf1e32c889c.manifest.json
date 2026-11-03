@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 2,
+  "targetId": "relevance-ai",
+  "organization": "Relevance AI",
+  "evidenceId": "ev_50d1ff319315978263ad976fb828d7a6cfe3f7c5aaa58edfa8cb9cf1e32c889c",
+  "capturedAt": "2026-11-02T15:40:48.987Z",
+  "sourceUrl": "https://relevanceai.com/customers/canva",
+  "coverage": "Pagina publica de caso de cliente",
+  "limitations": "Sin sesion; sin metricas verificables",
+  "artifactSha256": "a66122910f3c319bf809e09937e8d5ceb8181e76becb8d2c47c85ea7869a0711",
+  "originalFileName": "relevance-customer-canva.json",
+  "status": "IMPORTED_PENDING_HUMAN_REVIEW",
+  "note": "Hash verifies this imported artifact only; it does not authenticate REA execution, coverage or third-party behavior."
+}

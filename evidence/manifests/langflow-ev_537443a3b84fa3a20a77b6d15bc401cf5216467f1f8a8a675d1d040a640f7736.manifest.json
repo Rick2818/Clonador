@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 2,
+  "targetId": "langflow",
+  "organization": "Langflow",
+  "evidenceId": "ev_537443a3b84fa3a20a77b6d15bc401cf5216467f1f8a8a675d1d040a640f7736",
+  "capturedAt": "2026-11-02T15:39:54.552Z",
+  "sourceUrl": "https://www.langflow.org/contact-us",
+  "coverage": "Pagina publica de contacto",
+  "limitations": "Sin enviar formulario; solo estructura",
+  "artifactSha256": "b2dc22dedd112a4332e1a6426af39a584d6403aa0911785db75c8ecc57e6ed14",
+  "originalFileName": "langflow-contact.json",
+  "status": "IMPORTED_PENDING_HUMAN_REVIEW",
+  "note": "Hash verifies this imported artifact only; it does not authenticate REA execution, coverage or third-party behavior."
+}

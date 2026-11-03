@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 2,
+  "targetId": "langflow",
+  "organization": "Langflow",
+  "evidenceId": "ev_1dafbd447f4ef82d6a0267a8a4203fb0e870508c27c36ed0400b48c280dd6289",
+  "capturedAt": "2026-11-02T15:40:00.000Z",
+  "sourceUrl": "https://www.langflow.org/",
+  "coverage": "Landing publica: propuesta de valor, navegacion, CTAs, secciones y enlaces visibles",
+  "limitations": "Solo pagina publica sin sesion; no se observaron precios, checkout ni flujo de compra",
+  "artifactSha256": "6792b3822af88fc419925120825dc3e919d57da780c6a6f54c0448a404aff189",
+  "originalFileName": "langflow-observation.json",
+  "status": "IMPORTED_PENDING_HUMAN_REVIEW",
+  "note": "Hash verifies this imported artifact only; it does not authenticate REA execution, coverage or third-party behavior."
+}

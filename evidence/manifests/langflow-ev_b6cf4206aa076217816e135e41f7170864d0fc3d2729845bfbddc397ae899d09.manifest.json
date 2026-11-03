@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 2,
+  "targetId": "langflow",
+  "organization": "Langflow",
+  "evidenceId": "ev_b6cf4206aa076217816e135e41f7170864d0fc3d2729845bfbddc397ae899d09",
+  "capturedAt": "2026-11-02T15:39:28.292Z",
+  "sourceUrl": "https://www.langflow.org/use-cases",
+  "coverage": "Listado publico de casos de uso",
+  "limitations": "Sin sesion; texto filtrado por politica",
+  "artifactSha256": "e562a6527d2481535829ff231afb8e4b72fd39a838ab2eb6a53d4151b28498d9",
+  "originalFileName": "langflow-use-cases.json",
+  "status": "IMPORTED_PENDING_HUMAN_REVIEW",
+  "note": "Hash verifies this imported artifact only; it does not authenticate REA execution, coverage or third-party behavior."
+}

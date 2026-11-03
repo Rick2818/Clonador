@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 2,
+  "targetId": "relevance-ai",
+  "organization": "Relevance AI",
+  "evidenceId": "ev_b73f666496fc02f9476c63e4941b62a21c586fa82da1325d49ed0e96239aa5ca",
+  "capturedAt": "2026-11-02T15:40:36.584Z",
+  "sourceUrl": "https://relevanceai.com/use-cases/proposal-builder",
+  "coverage": "Pagina publica de caso de uso por rol",
+  "limitations": "Sin sesion; texto filtrado",
+  "artifactSha256": "472cd8d1fe8b0990d999333df3d198b66e21664d9e523f982ac860571aed0784",
+  "originalFileName": "relevance-usecase-proposal.json",
+  "status": "IMPORTED_PENDING_HUMAN_REVIEW",
+  "note": "Hash verifies this imported artifact only; it does not authenticate REA execution, coverage or third-party behavior."
+}
